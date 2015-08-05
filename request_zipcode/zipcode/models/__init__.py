@@ -13,6 +13,7 @@ from .log_grande_usuario import LogGrandeUsuario
 from .log_localidade import LogLocalidade
 from .log_logradouro import LogLogradouro
 from .log_unid_oper import LogUnidOper
+from .zipcode import ZipCode
 
 
 class LogFaixaCpc(models.Model):

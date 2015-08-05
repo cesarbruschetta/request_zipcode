@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.core.cache import get_cache
+from django.core.cache import caches
 
 from .cep_tracker import CepTracker
 from request_zipcode.zipcode.models import (LogLogradouro, LogLocalidade,
@@ -46,7 +46,7 @@ def _processor(cep):
 
 
 def cep_find(cep):
-    cache = get_cache('default')
+    cache = caches['default']
     key = 'zipcode:{0}'.format(cep)
 
     cached_data = cache.get(key)
