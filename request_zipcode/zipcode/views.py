@@ -11,21 +11,21 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def check_cep(request, cep):
+def cep_check(request, cep):
     cep = cep.replace('-', '')
     try:
         data = cep_find(cep)
         data['success'] = True
 
         # ATERAÇÂO PARA A COMPATIBILIDADE COM OUTRAS API
-        data.update({'localidade': data.get('cidade', ''),
-                     'uf': data.get('estado', '')})
+        # data.update({'localidade': data.get('cidade', ''),
+        #              'uf': data.get('estado', '')})
 
     except Exception, ex:
         logger.error('Erro no cep: %s' % (str(ex)))
         data = {}
 
-    return HttpResponse(json.dumps(data), mimetype='application/json')
+    return HttpResponse(json.dumps(data), content_type='application/json')
 
 
 def crossdomain(request):

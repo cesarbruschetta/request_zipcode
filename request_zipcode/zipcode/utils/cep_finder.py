@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.core.cache import get_cache
 
-from pingo.utils.CepTracker import CepTracker
-from zipcode.models import (LogLogradouro, LogLocalidade,
-                            LogUnidOper, LogGrandeUsuario)
+from .cep_tracker import CepTracker
+from request_zipcode.zipcode.models import (LogLogradouro, LogLocalidade,
+                                            LogUnidOper, LogGrandeUsuario)
 
 import logging
 # Get an instance of a logger
