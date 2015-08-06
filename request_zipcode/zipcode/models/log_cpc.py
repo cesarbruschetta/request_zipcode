@@ -7,7 +7,7 @@ class LogCpc(models.Model):
 
     cpc_nu_sequencial = models.IntegerField(primary_key=True)
     ufe_sg = models.CharField(max_length=2L)
-    loc_nu_sequencial = models.ForeignKey('LogLocalidade',
+    loc_nu_sequencial = models.ForeignKey('zipcode.LogLocalidade',
                                           db_column='loc_nu_sequencial')
     cep = models.CharField(max_length=16L)
     cpc_no = models.CharField(max_length=96L)

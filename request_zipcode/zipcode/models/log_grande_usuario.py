@@ -12,9 +12,9 @@ class LogGrandeUsuario(models.Model):
 
     gru_nu_sequencial = models.IntegerField(primary_key=True)
     ufe_sg = models.CharField(max_length=2L)
-    loc_nu_sequencial = models.ForeignKey('LogLocalidade',
+    loc_nu_sequencial = models.ForeignKey('zipcode.LogLocalidade',
                                           db_column='loc_nu_sequencial')
-    log_nu_sequencial = models.ForeignKey('LogLogradouro',
+    log_nu_sequencial = models.ForeignKey('zipcode.LogLogradouro',
                                           db_column='log_nu_sequencial',
                                           blank=True, null=True)
     bai_nu_sequencial = models.ForeignKey('zipcode.LogBairro',
@@ -25,8 +25,13 @@ class LogGrandeUsuario(models.Model):
     temp = models.CharField(max_length=8L, blank=True)
 
     def to_dict(self):
+        try:
+            logradouro = self.log_nu_sequencial.log_nome
+        except:
+            logradouro = self.gru_no
+
         return {
-            'logradouro': self.log_nu_sequencial.log_nome,
+            'logradouro': logradouro,
             'bairro': self.bai_nu_sequencial.bai_no,
             'cidade': self.loc_nu_sequencial.loc_no,
             'estado': self.loc_nu_sequencial.uf_name,

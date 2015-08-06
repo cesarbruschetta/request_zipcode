@@ -17,19 +17,28 @@ def run(*args):
 
     '''
     def _processor(items):
-        logger.info('Processando os dados de %s' % (items.model.__name__))
+        name_model = items.model.__name__
+        logger.info('Processando os dados de %s' % (name_model))
         for item in items:
             data = item.to_dict()
             if not ZipCode.objects.filter(cep=data['cep']).exists():
-                ZipCode.objects.create(**data)
+                try:
+                    ZipCode.objects.create(**data)
+                    logger.info('%s: Cep %(cep)s adcionado com sucesso' % (data,
+                                                                           name_model))
+                except Exception, ex:
+                    logger.error('%s: Error: %s - data: %s' % (str(ex),
+                                                               data,
+                                                               name_model))
             else:
-                logger.info('Cep %(cep)s ja existe no banco de dados' % (data))
+                logger.info('%s: Cep %(cep)s ja existe no banco de dados' %
+                            (data, name_model))
 
+    # PROCESSA LOGRADOUROS (RUAS, AV., ETC.)
     _processor(LogLogradouro.objects.all())
+    # PROCESSA LOCALIDADES (CIDADES)
     _processor(LogLocalidade.objects.all())
+    # PROCESSA UNIDADES DOS CORREIOS
     _processor(LogUnidOper.objects.all())
+    # PROCESSA GRANDES uSUARIOS (EMPRESAS, GOVERNOS, FACULDADES, ETC.)
     _processor(LogGrandeUsuario.objects.all())
-    # print LogLogradouro.objects.all().count()
-    # print LogLocalidade.objects.all().count()
-    # print LogUnidOper.objects.all().count()
-    # print LogGrandeUsuario.objects.all().count()

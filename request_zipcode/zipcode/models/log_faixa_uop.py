@@ -5,7 +5,7 @@ from django.db import models
 
 class LogFaixaUop(models.Model):
 
-    uop_nu_sequencial = models.ForeignKey('LogUnidOper',
+    uop_nu_sequencial = models.ForeignKey('zipcode.LogUnidOper',
                                           db_column='uop_nu_sequencial')
     fnc_nu_inicial = models.IntegerField()
     fnc_nu_final = models.IntegerField(null=True, blank=True)

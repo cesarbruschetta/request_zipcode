@@ -7,7 +7,7 @@ class LogBairro(models.Model):
 
     bai_nu_sequencial = models.IntegerField(primary_key=True)
     ufe_sg = models.CharField(max_length=2L)
-    loc_nu_sequencial = models.ForeignKey('LogLocalidade',
+    loc_nu_sequencial = models.ForeignKey('zipcode.LogLocalidade',
                                           db_column='loc_nu_sequencial')
     bai_no = models.CharField(max_length=72L)
     bai_no_abrev = models.CharField(max_length=36L, blank=True)
